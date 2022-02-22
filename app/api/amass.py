@@ -1,32 +1,51 @@
-from fastapi import APIRouter, Body, Response
+import re
+import logging
+
+from fastapi import APIRouter
+from fastapi.param_functions import Body
 from starlette.responses import JSONResponse
-import logging, os, json
+from app.schemas import EnumRequestModel
 
 from app.service.amass.db import DBClient
+from app.service.amass.enum import EnumClient
+
+enum_client = EnumClient()
+db_client = DBClient()
+
+router = APIRouter()
 
 
-client = DBClient()
+@router.post("/enum")
+def enumerate(req: EnumRequestModel = Body(...)) -> JSONResponse:
+    domain = re.sub(r"^http(s)?://", "", req.domain)
+    config = req.config.dict() if req.config != None else None
+    try:
+        result = enum_client.enumerate(domain, config=config)
+        return JSONResponse(status_code=200, content=result)
+    except Exception as e:
+        logging.error(e)
+        return JSONResponse(status_code=400, content={"message": "error"})
 
-router = APIRouter(prefix="/db")
 
-@router.get("/")
-def get_enum_by_domain(domain: str):
-  try:
-    result = client.get_enum(domain=domain)
-    return JSONResponse(status_code=200, content=result)
-  except Exception as e:  
-    print(e)
-    return JSONResponse(status_code=400, content={
-      "message": "error"
-    })
+@router.get("/db")
+def get_enum_by_domain(domain: str) -> JSONResponse:
+    assert domain != ""
 
-@router.get("/latest")
+    domain = re.sub(r"^http(s)?://", "", domain)
+
+    try:
+        result = db_client.get_enum(domain=domain)
+        return JSONResponse(status_code=200, content=result)
+    except Exception as e:
+        logging.error(e)
+        return JSONResponse(status_code=400, content={"message": "error"})
+
+
+@router.get("/db/latest")
 def get_latest_enum() -> JSONResponse:
-  try:
-    result = client.get_enum(config={ "latest": True })
-    return JSONResponse(status_code=200, content=result)
-  except Exception as e:  
-    print(e)
-    return JSONResponse(status_code=400, content={
-      "message": "error"
-    })
+    try:
+        result = db_client.get_enum(config={"latest": True})
+        return JSONResponse(status_code=200, content=result)
+    except Exception as e:
+        logging.error(e)
+        return JSONResponse(status_code=400, content={"message": "error"})
