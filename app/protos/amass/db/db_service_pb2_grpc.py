@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import db_message_pb2 as protos_dot_amass_dot_db_dot_db__message__pb2
+from app.protos.amass.db import db_message_pb2 as app_dot_protos_dot_amass_dot_db_dot_db__message__pb2
 
 
 class DBServiceStub(object):
@@ -16,8 +16,8 @@ class DBServiceStub(object):
         """
         self.Run = channel.unary_unary(
                 '/db.DBService/Run',
-                request_serializer=protos_dot_amass_dot_db_dot_db__message__pb2.DBRequest.SerializeToString,
-                response_deserializer=protos_dot_amass_dot_db_dot_db__message__pb2.DBResponse.FromString,
+                request_serializer=app_dot_protos_dot_amass_dot_db_dot_db__message__pb2.DBRequest.SerializeToString,
+                response_deserializer=app_dot_protos_dot_amass_dot_db_dot_db__message__pb2.DBResponse.FromString,
                 )
 
 
@@ -35,8 +35,8 @@ def add_DBServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Run': grpc.unary_unary_rpc_method_handler(
                     servicer.Run,
-                    request_deserializer=protos_dot_amass_dot_db_dot_db__message__pb2.DBRequest.FromString,
-                    response_serializer=protos_dot_amass_dot_db_dot_db__message__pb2.DBResponse.SerializeToString,
+                    request_deserializer=app_dot_protos_dot_amass_dot_db_dot_db__message__pb2.DBRequest.FromString,
+                    response_serializer=app_dot_protos_dot_amass_dot_db_dot_db__message__pb2.DBResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -60,7 +60,7 @@ class DBService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/db.DBService/Run',
-            protos_dot_amass_dot_db_dot_db__message__pb2.DBRequest.SerializeToString,
-            protos_dot_amass_dot_db_dot_db__message__pb2.DBResponse.FromString,
+            app_dot_protos_dot_amass_dot_db_dot_db__message__pb2.DBRequest.SerializeToString,
+            app_dot_protos_dot_amass_dot_db_dot_db__message__pb2.DBResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
