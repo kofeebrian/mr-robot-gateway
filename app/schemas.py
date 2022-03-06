@@ -2,7 +2,9 @@ from pydantic import BaseModel
 
 # Example of Schemas for req-res:
 
-class Test_input(BaseModel):
+class Fuzzing_Result(BaseModel):
     message: str
+    total: int
+    data: list
     class Config:
         orm_mode = True
