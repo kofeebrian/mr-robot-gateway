@@ -25,7 +25,7 @@ class FFUFClient(object):
                     content = {"message": "Invalid Request"}
                 )
         except Exception as e:
-            logging.error(f"Enumeration get failed with {e}")
+            logging.error(e)
             return JSONResponse(
                 status_code=400,
                 content={"message": "error"}
