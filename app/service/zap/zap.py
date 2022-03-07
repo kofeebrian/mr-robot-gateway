@@ -16,7 +16,7 @@ class ZAPClient(object):
             'full': '/fullscan'
         }
 
-    def fuzzing(self, url: str, option: str) -> Response:
+    def scanning(self, url: str, option: str) -> Response:
         try:
             if len(url) > 0:
                 return JSONResponse(
