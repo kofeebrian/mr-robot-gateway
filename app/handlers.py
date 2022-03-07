@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from .api import test
+
+from .api import amass, test
 
 app = FastAPI()
 
@@ -8,5 +9,11 @@ app = FastAPI()
 app.include_router(
     test.router,
     prefix="/api",
+    responses={404: {"message": "Not Found"}},
+)
+
+app.include_router(
+    amass.router,
+    prefix="/api/amass",
     responses={404: {"message": "Not Found"}},
 )

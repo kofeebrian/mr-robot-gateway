@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "github.com/kofeebrian/capamass/protos/amass/db";
+
+import public "app/protos/amass/result.proto";
+
+package db;
+
+message DBConfig {
+  bool latest = 1;
+}
+
+message DBResult {
+  repeated Event events = 1;
+  repeated Domains domains = 2;
+}
+
+message DBRequest {
+  string id = 1;
+  optional string domain = 2;
+  optional DBConfig config = 3;
+}
+
+message DBResponse {
+  string id = 1;
+  optional string domain = 2;
+  DBResult result = 3;
+}
