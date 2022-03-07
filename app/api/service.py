@@ -16,12 +16,12 @@ from app.service.wapp.wapp import WAPPClient, WappClient
 
 # Client for each service 
 enum_client = EnumClient()
-db_client = DBClient()
-viz_client = VizClient()
 ffuf_client = FFUFClient()
 nmap_client = NmapClient()
-zap_client = ZAPClient()
 wapp_client = WAPPClient()
+viz_client = VizClient()
+zap_client = ZAPClient()
+db_client = DBClient()
 
 router = APIRouter()
 
