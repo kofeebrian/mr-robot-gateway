@@ -12,7 +12,7 @@ from app.service.amass.viz import VizClient
 from app.service.ffuf.ffuf import FFUFClient
 from app.service.nmap.nmap import NmapClient
 from app.service.zap.zap import ZAPClient
-from app.service.wapp.wapp import WAPPClient, WappClient
+from app.service.wapp.wapp import WAPPClient
 
 # Client for each service 
 enum_client = EnumClient()
