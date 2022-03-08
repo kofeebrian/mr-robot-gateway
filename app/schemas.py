@@ -7,15 +7,18 @@ from pydantic.class_validators import validator
 
 from app.protos.amass.db.db_message_pb2 import DBConfig
 
-# Example of Schemas for req-res:
+# Request:
 
-class Fuzzing_Result(BaseModel):
-    message: str
-    total: int
-    data: list
+class Simple_Request(BaseModel):
+    url: str
     class Config:
         orm_mode = True
 
+class Optional_Request(BaseModel):
+    url: str
+    option: str
+    class Config:
+        orm_mode = True
 
 # --- Amass ---
 
