@@ -1,8 +1,8 @@
-from typing import Optional
 from enum import IntEnum
-from pydantic import BaseModel
 from ipaddress import IPv4Address
+from typing import Optional
 
+from pydantic import BaseModel
 from pydantic.class_validators import validator
 
 from app.protos.amass.db.db_message_pb2 import DBConfig
@@ -11,8 +11,6 @@ from app.protos.amass.db.db_message_pb2 import DBConfig
 
 class Simple_Request(BaseModel):
     url: str
-    class Config:
-        orm_mode = True
 
 class Optional_Request(BaseModel):
     url: str
@@ -20,8 +18,8 @@ class Optional_Request(BaseModel):
     class Config:
         orm_mode = True
 
-# --- Amass ---
 
+# --- Amass ---
 
 class EnumMode(IntEnum):
     DEFAULT = 0
@@ -45,4 +43,3 @@ class EnumConfigModel(BaseModel):
 class EnumRequestModel(BaseModel):
     domain: str
     config: Optional[EnumConfigModel] = None
-

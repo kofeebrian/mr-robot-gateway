@@ -1,7 +1,7 @@
 import logging
 import re
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Response
 from fastapi.param_functions import Body
 from starlette.responses import JSONResponse
 
@@ -11,8 +11,8 @@ from app.service.amass.enum import EnumClient
 from app.service.amass.viz import VizClient
 from app.service.ffuf.ffuf import FFUFClient
 from app.service.nmap.nmap import NmapClient
-from app.service.zap.zap import ZAPClient
 from app.service.wapp.wapp import WAPPClient
+from app.service.zap.zap import ZAPClient
 
 from urllib.parse import urlparse
 import http.client
@@ -39,6 +39,14 @@ def check_url(url):
     else:
         return False
 
+# --- ZAP ---
+@router.post("/zap/scan")
+async def zap_scan(req: Optional_Request = Body(...)) -> Response:
+    url = req.url
+    option = req.option if req.option != None else "base"
+
+    return zap_client.scanning(url, option)
+    
 @router.post("/amass/enum")
 def enumerate(req: EnumRequestModel = Body(...)) -> JSONResponse:
     domain = re.sub(r"^http(s)?://", "", req.domain)
