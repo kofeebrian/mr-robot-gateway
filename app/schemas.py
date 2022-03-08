@@ -1,20 +1,32 @@
-from typing import Optional
 from enum import IntEnum
-from pydantic import BaseModel
 from ipaddress import IPv4Address
+from typing import Optional
 
+from pydantic import BaseModel
 from pydantic.class_validators import validator
 
-from app.protos.amass.db.db_message_pb2 import DBConfig
-
 # Example of Schemas for req-res:
+
 
 class Fuzzing_Result(BaseModel):
     message: str
     total: int
     data: list
+
     class Config:
         orm_mode = True
+
+
+# --- ZAP ---
+class ZapRequestModel(BaseModel):
+    """
+    Zap service request model:
+    - url: string
+    - option: "base" | "full"
+    """
+
+    url: str
+    option: Optional[str] = "base"
 
 
 # --- Amass ---
@@ -42,4 +54,3 @@ class EnumConfigModel(BaseModel):
 class EnumRequestModel(BaseModel):
     domain: str
     config: Optional[EnumConfigModel] = None
-
