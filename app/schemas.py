@@ -1,6 +1,6 @@
 from typing import Optional
 from enum import IntEnum
-from pydantic import BaseModel
+from pydantic import BaseModel, HttpUrl
 from ipaddress import IPv4Address
 
 from pydantic.class_validators import validator
@@ -16,6 +16,16 @@ class Fuzzing_Result(BaseModel):
     class Config:
         orm_mode = True
 
+# --- ZAP ---
+class ZapRequestModel(BaseModel):
+    """
+    Zap service request model:
+    - url: string
+    - option: "base" | "full"
+    """
+    url: str
+    option: Optional[str] = "base"
+    
 
 # --- Amass ---
 

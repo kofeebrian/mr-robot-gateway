@@ -1,5 +1,4 @@
 import logging
-from flask import request
 from starlette.responses import JSONResponse
 from fastapi import Response
 import requests
