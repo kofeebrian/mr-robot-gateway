@@ -1,5 +1,4 @@
 import logging
-from flask import request
 from starlette.responses import JSONResponse
 from fastapi import Response
 import requests
@@ -10,7 +9,7 @@ class NmapClient(object):
     """
 
     def __init__(self):
-        self.server = "localhost:8888/api/scan"
+        self.server = "nmap-service:8888/api/scan"
 
     def scanning(self, url: str) -> Response:
         try:

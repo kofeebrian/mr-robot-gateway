@@ -11,7 +11,7 @@ class ZAPClient(object):
     """
 
     def __init__(self):
-        self.server = "localhost:8080/api"
+        self.server = "zap-service:8080/api"
         self.options = {"base": "/basescan", "full": "/fullscan"}
 
     def scanning(self, url: str, option: str) -> Response:

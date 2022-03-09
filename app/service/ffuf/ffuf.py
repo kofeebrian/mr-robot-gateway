@@ -1,5 +1,4 @@
 import logging
-from flask import request
 from starlette.responses import JSONResponse
 from fastapi import Response
 import requests
@@ -10,7 +9,7 @@ class FFUFClient(object):
     """
 
     def __init__(self):
-        self.server = "localhost:8000/api/scan"
+        self.server = "ffuf-service:8000/api/scan"
 
     def fuzzing(self, url: str) -> Response:
         try:

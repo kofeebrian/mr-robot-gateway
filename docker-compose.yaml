@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  proxy:
+    image: nginx:alpine
+    ports:
+      - 80:80 
+    depends_on:
+      - app
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - backend
+
+  app:
+    image: capstone/cap-gateway
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - amass-service
+      - ffuf-service
+      - zap-service
+      - nmap-service
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    networks:
+      - backend
+      - service
+
+  amass-service:
+    image: kofeebrian/amass-service:latest
+    restart: unless-stopped
+    networks:
+      - service
+    volumes:
+      - amass-data:/data
+      - amass-config:/.config/amass
+
+  ffuf-service:
+    image: boomboss555/ffuf-service:latest
+    restart: unless-stopped
+    networks:
+      - service
+
+  zap-service:
+    image: boomboss555/zap-service:latest
+    restart: unless-stopped
+    networks:
+      - service
+
+  nmap-service:
+    image: boomboss555/nmap-service:latest
+    restart: unless-stopped
+    networks:
+      - service
+volumes:
+  amass-data:
+  amass-config:
+
+networks:
+  frontend:
+  backend:
+    driver: bridge
+  service:
+

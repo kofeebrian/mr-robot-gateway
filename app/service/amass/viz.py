@@ -14,7 +14,7 @@ class VizClient(object):
     """
 
     def __init__(self) -> None:
-        self.host = "localhost"
+        self.host = "amass-service"
         self.server_port = "3000"
 
         self.channel = grpc.insecure_channel(f"{self.host}:{self.server_port}")
