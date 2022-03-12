@@ -1,8 +1,8 @@
 import logging
-from flask import request
 from starlette.responses import JSONResponse
 from fastapi import Response
 import requests
+
 
 class NmapClient(object):
     """
@@ -16,17 +16,12 @@ class NmapClient(object):
         try:
             if len(url) > 0:
                 return JSONResponse(
-                    status_code = 200,
-                    content = requests.post(self.server, data=url)
+                    status_code=200, content=requests.post(self.server, data=url)
                 )
             else:
                 return JSONResponse(
-                    status_code = 400,
-                    content = {"message": "Invalid Request"}
+                    status_code=400, content={"message": "Invalid Request"}
                 )
         except Exception as e:
             logging.error(e)
-            return JSONResponse(
-                status_code=400,
-                content={"message": "error"}
-            )
+            return JSONResponse(status_code=400, content={"message": "error"})
