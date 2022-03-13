@@ -17,7 +17,7 @@ from app.service.zap.zap import ZAPClient
 from urllib.parse import urlparse
 import http.client
 
-# Client for each service 
+# Client for each service
 enum_client = EnumClient()
 ffuf_client = FFUFClient()
 nmap_client = NmapClient()
@@ -33,9 +33,12 @@ router = APIRouter()
 def check_url(url):
     url = urlparse(url)
     conn = http.client.HTTPConnection(url.netloc)
-    conn.request('HEAD', url.path)
-    if conn.getresponse():  return True
-    else:   return False
+    conn.request("HEAD", url.path)
+    if conn.getresponse():
+        return True
+    else:
+        return False
+
 
 # --- ZAP ---
 @router.post("/zap/scan")
@@ -44,7 +47,8 @@ async def zap_scan(req: Optional_Request = Body(...)) -> Response:
     option = req.option if req.option != None else "base"
 
     return zap_client.scanning(url, option)
-    
+
+
 @router.post("/amass/enum")
 def enumerate(req: EnumRequestModel = Body(...)) -> JSONResponse:
     domain = re.sub(r"^http(s)?://", "", req.domain)
@@ -97,20 +101,22 @@ def get_graphistry(domain: str) -> JSONResponse:
 
 @router.post("/ffuf/scan")
 def ffuf_scan(req: Simple_Request = Body(...)) -> JSONResponse:
-    if not req: return JSONResponse(status_code=400, content={"message": "Invalid Request"})
-    if 'http' not in req.url:
-        url_http = 'http://' + req.url
-        url_https = 'https://' + req.url
-        if check_url(url_https): url = url_https
-        else:   url = url_http
-    try:
-        result = ffuf_client.fuzzing(url)
-        return JSONResponse(status_code=200, content=result)
-    except Exception as e:
-        logging.error(e)
-        return JSONResponse(status_code=400, content={"message": "error"})
+    if not req:
+        return JSONResponse(status_code=400, content={"message": "Invalid Request"})
 
+    url = req.url 
+    if "http" not in req.url:
+        url_http = "http://" + req.url
+        url_https = "https://" + req.url
+        if check_url(url_https):
+            url = url_https
+        else:
+            url = url_http
+
+    return ffuf_client.fuzzing(url)
+    
 @router.get("/wapp/scan")
+        return JSONResponse(status_code=400, content={"message": "error"})
 def wapp_scan(req: Simple_Request = Body(...)) -> JSONResponse:
     if not req: return JSONResponse(status_code=400, content={"message": "Invalid Request"})
     if 'http' not in req.url:
@@ -123,4 +129,3 @@ def wapp_scan(req: Simple_Request = Body(...)) -> JSONResponse:
         return JSONResponse(status_code=200, content=result)
     except Exception as e:
         logging.error(e)
-        return JSONResponse(status_code=400, content={"message": "error"})
