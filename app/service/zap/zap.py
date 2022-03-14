@@ -17,15 +17,12 @@ class ZAPClient(object):
     def scanning(self, url: str, option: str) -> Response:
         try:
             if len(url) > 0:
+                response = requests.post(
+                    self.server
+                    + self.options.get(option, "Only 'base' and 'full' are allowed.")
+                )
                 return JSONResponse(
-                    status_code=200,
-                    content=requests.post(
-                        self.server
-                        + self.options.get(
-                            option, "Only 'base' and 'full' are allowed."
-                        ),
-                        data=url,
-                    ),
+                    status_code=200, content=response.json(), json={"url": url}
                 )
             else:
                 return JSONResponse(

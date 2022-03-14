@@ -15,9 +15,8 @@ class NmapClient(object):
     def scanning(self, url: str) -> Response:
         try:
             if len(url) > 0:
-                return JSONResponse(
-                    status_code=200, content=requests.post(self.server, data=url)
-                )
+                response = requests.post(self.server, json={"url": url})
+                return JSONResponse(status_code=200, content=response.json())
             else:
                 return JSONResponse(
                     status_code=400, content={"message": "Invalid Request"}
