@@ -1,6 +1,6 @@
 from enum import IntEnum
 from ipaddress import IPv4Address
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel
 from pydantic.class_validators import validator
@@ -30,10 +30,10 @@ class EnumMode(IntEnum):
 class EnumConfigModel(BaseModel):
     mode: Optional[EnumMode] = EnumMode.DEFAULT
     timeout: Optional[int] = None
-    dnsResolvers: Optional[list[IPv4Address]] = None
+    dnsResolvers: Optional[List[IPv4Address]] = None
 
     @validator("dnsResolvers")
-    def convert_dns_server(cls, dns: Optional[list[IPv4Address]]):
+    def convert_dns_server(cls, dns: Optional[List[IPv4Address]]):
         if dns == None or len(dns) == 0:
             return None
 

@@ -11,21 +11,18 @@ class ZAPClient(object):
     """
 
     def __init__(self):
-        self.server = "localhost:8080/api"
+        self.server = "http://localhost:8080/api"
         self.options = {"base": "/basescan", "full": "/fullscan"}
 
     def scanning(self, url: str, option: str) -> Response:
         try:
             if len(url) > 0:
+                response = requests.post(
+                    self.server
+                    + self.options.get(option, "Only 'base' and 'full' are allowed.")
+                )
                 return JSONResponse(
-                    status_code=200,
-                    content=requests.post(
-                        self.server
-                        + self.options.get(
-                            option, "Only 'base' and 'full' are allowed."
-                        ),
-                        data=url,
-                    ),
+                    status_code=200, content=response.json(), json={"url": url}
                 )
             else:
                 return JSONResponse(
