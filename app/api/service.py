@@ -34,10 +34,8 @@ def check_url(url):
     url = urlparse(url)
     conn = http.client.HTTPConnection(url.netloc)
     conn.request('HEAD', url.path)
-    if conn.getresponse():
-        return True
-    else:
-        return False
+    if conn.getresponse():  return True
+    else:   return False
 
 # --- ZAP ---
 @router.post("/zap/scan")
