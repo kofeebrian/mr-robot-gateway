@@ -109,3 +109,18 @@ def ffuf_scan(req: Simple_Request = Body(...)) -> JSONResponse:
     except Exception as e:
         logging.error(e)
         return JSONResponse(status_code=400, content={"message": "error"})
+
+@router.get("/wapp/scan")
+def wapp_scan(req: Simple_Request = Body(...)) -> JSONResponse:
+    if not req: return JSONResponse(status_code=400, content={"message": "Invalid Request"})
+    if 'http' not in req.url:
+        url_http = 'http://' + req.url
+        url_https = 'https://' + req.url
+        if check_url(url_https): url = url_https
+        else: url = url_http
+    try:
+        result = wapp_client.scanning(url)
+        return JSONResponse(status_code=200, content=result)
+    except Exception as e:
+        logging.error(e)
+        return JSONResponse(status_code=400, content={"message": "error"})
