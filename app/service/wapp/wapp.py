@@ -10,7 +10,7 @@ class WAPPClient(object):
     """
 
     def __init__(self):
-        self.server = "localhost:8000/xxx"
+        self.server = "http://localhost:8000/xxx"
 
     def scanning(self, url: str) -> Response:
         try:

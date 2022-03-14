@@ -10,7 +10,7 @@ class FFUFClient(object):
     """
 
     def __init__(self):
-        self.server = "localhost:8000/api/scan"
+        self.server = "http://localhost:8000/api/scan"
 
     def fuzzing(self, url: str) -> Response:
         try:
