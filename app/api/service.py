@@ -104,7 +104,7 @@ def ffuf_scan(req: Simple_Request = Body(...)) -> JSONResponse:
     if not req:
         return JSONResponse(status_code=400, content={"message": "Invalid Request"})
 
-    url = req.url 
+    url = req.url
     if "http" not in req.url:
         url_http = "http://" + req.url
         url_https = "https://" + req.url
@@ -114,18 +114,40 @@ def ffuf_scan(req: Simple_Request = Body(...)) -> JSONResponse:
             url = url_http
 
     return ffuf_client.fuzzing(url)
-    
+
+
+@router.post("/nmap/scan")
+def ffuf_scan(req: Simple_Request = Body(...)) -> JSONResponse:
+    if not req:
+        return JSONResponse(status_code=400, content={"message": "Invalid Request"})
+
+    url = req.url
+    if "http" not in req.url:
+        url_http = "http://" + req.url
+        url_https = "https://" + req.url
+        if check_url(url_https):
+            url = url_https
+        else:
+            url = url_http
+
+    return nmap_client.scanning(url)
+
+
 @router.get("/wapp/scan")
-        return JSONResponse(status_code=400, content={"message": "error"})
-def wapp_scan(req: Simple_Request = Body(...)) -> JSONResponse:
-    if not req: return JSONResponse(status_code=400, content={"message": "Invalid Request"})
-    if 'http' not in req.url:
-        url_http = 'http://' + req.url
-        url_https = 'https://' + req.url
-        if check_url(url_https): url = url_https
-        else: url = url_http
+def wapp_scan(url: str) -> JSONResponse:
+    if not url:
+        return JSONResponse(status_code=400, content={"message": "Invalid Request"})
+
+    if "http" not in url:
+        url_http = "http://" + url
+        url_https = "https://" + url
+        if check_url(url_https):
+            url = url_https
+        else:
+            url = url_http
     try:
         result = wapp_client.scanning(url)
         return JSONResponse(status_code=200, content=result)
     except Exception as e:
         logging.error(e)
+        return JSONResponse(status_code=400, content={"message": "error"})

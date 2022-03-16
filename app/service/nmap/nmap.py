@@ -10,7 +10,7 @@ class NmapClient(object):
     """
 
     def __init__(self):
-        self.server = "http://localhost:8888/api/scan"
+        self.server = "http://nmap-service:8000/api/scan"
 
     def scanning(self, url: str) -> Response:
         try:

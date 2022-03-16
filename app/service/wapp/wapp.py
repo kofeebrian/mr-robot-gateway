@@ -10,12 +10,12 @@ class WAPPClient(object):
     """
 
     def __init__(self):
-        self.server = "http://localhost:8000"
+        self.server = "http://wapp-service:3000"
 
     def scanning(self, url: str) -> Response:
         try:
             if len(url) > 0:
-                response = requests.get(f'{self.server}/?url={url}')
+                response = requests.get(f"{self.server}/?url={url}")
                 return JSONResponse(status_code=200, content=response.json())
             else:
                 return JSONResponse(

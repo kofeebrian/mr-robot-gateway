@@ -21,12 +21,13 @@ services:
       - ffuf-service
       - zap-service
       - nmap-service
+      - wapp-service
     expose:
       - 8000
     ports:
       - 8000:8000
-    volumes:
-      - ./app:/app
+    # volumes:
+    #   - ./app:/app
     networks:
       - backend
       - service
@@ -58,6 +59,13 @@ services:
       - zap-wrk:/zap/wrk
       - zap-report:/zap/wrk/app/reports
 
+  wapp-service:
+    image: siwakorn21/wappalyzer-server
+    restart: unless-stopped
+    expose:
+      - 3000
+    networks:
+      - service
 
   nmap-service:
     image: boomboss555/nmap-service:latest
