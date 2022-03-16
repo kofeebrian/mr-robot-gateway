@@ -34,12 +34,15 @@ def check_url(url):
     url = urlparse(url)
     conn = http.client.HTTPConnection(url.netloc)
     conn.request('HEAD', url.path)
-    if conn.getresponse():  return True
-    else:   return False
+    if conn.getresponse():
+        return True
+    else:
+        return False
 
 # --- ZAP ---
 @router.post("/zap/scan")
 async def zap_scan(req: Optional_Request = Body(...)) -> Response:
+    if not req: return JSONResponse(status_code=400, content={"message": "Invalid Request"})
     url = req.url
     option = req.option if req.option != None else "base"
 
@@ -47,6 +50,7 @@ async def zap_scan(req: Optional_Request = Body(...)) -> Response:
     
 @router.post("/amass/enum")
 def enumerate(req: EnumRequestModel = Body(...)) -> JSONResponse:
+    if not req: return JSONResponse(status_code=400, content={"message": "Invalid Request"})
     domain = re.sub(r"^http(s)?://", "", req.domain)
     config = req.config.dict() if req.config != None else None
     try:
@@ -60,9 +64,7 @@ def enumerate(req: EnumRequestModel = Body(...)) -> JSONResponse:
 @router.get("/amass/db")
 def get_enum_by_domain(domain: str) -> JSONResponse:
     assert domain != ""
-
     domain = re.sub(r"^http(s)?://", "", domain)
-
     try:
         result = db_client.get_enum(domain=domain)
         return JSONResponse(status_code=200, content=result)
@@ -84,9 +86,7 @@ def get_latest_enum() -> JSONResponse:
 # --- VIZ ---
 @router.get("/amass/viz/graphistry")
 def get_graphistry(domain: str) -> JSONResponse:
-
     domain = re.sub(r"^http(s)?://", "", domain)
-
     try:
         result = viz_client.get_graphistry(domain)
         return JSONResponse(status_code=200, content=result)
@@ -110,16 +110,12 @@ def ffuf_scan(req: Simple_Request = Body(...)) -> JSONResponse:
         logging.error(e)
         return JSONResponse(status_code=400, content={"message": "error"})
 
-@router.get("/wapp/scan")
-def wapp_scan(req: Simple_Request = Body(...)) -> JSONResponse:
+
+@router.post("/nmap/scan")
+def nmap_scan(req: Simple_Request = Body(...)) -> JSONResponse:
     if not req: return JSONResponse(status_code=400, content={"message": "Invalid Request"})
-    if 'http' not in req.url:
-        url_http = 'http://' + req.url
-        url_https = 'https://' + req.url
-        if check_url(url_https): url = url_https
-        else: url = url_http
     try:
-        result = wapp_client.scanning(url)
+        result = nmap_client.scanning(req.url)
         return JSONResponse(status_code=200, content=result)
     except Exception as e:
         logging.error(e)
