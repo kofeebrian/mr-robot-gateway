@@ -60,7 +60,7 @@ services:
       - zap-report:/zap/wrk/app/reports
 
   wapp-service:
-    image: siwakorn21/wappalyzer-server
+    image: kofeebrian/wapp-service:latest
     restart: unless-stopped
     expose:
       - 3000

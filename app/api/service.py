@@ -145,9 +145,5 @@ def wapp_scan(url: str) -> JSONResponse:
             url = url_https
         else:
             url = url_http
-    try:
-        result = wapp_client.scanning(url)
-        return JSONResponse(status_code=200, content=result)
-    except Exception as e:
-        logging.error(e)
-        return JSONResponse(status_code=400, content={"message": "error"})
+
+    return wapp_client.scanning(url)
