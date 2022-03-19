@@ -1,36 +1,25 @@
 from enum import IntEnum
 from ipaddress import IPv4Address
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel
 from pydantic.class_validators import validator
 
-# Example of Schemas for req-res:
+from app.protos.amass.db.db_message_pb2 import DBConfig
 
+# Request:
 
-class Fuzzing_Result(BaseModel):
-    message: str
-    total: int
-    data: list
+class Simple_Request(BaseModel):
+    url: str
 
+class Optional_Request(BaseModel):
+    url: str
+    option: str
     class Config:
         orm_mode = True
 
 
-# --- ZAP ---
-class ZapRequestModel(BaseModel):
-    """
-    Zap service request model:
-    - url: string
-    - option: "base" | "full"
-    """
-
-    url: str
-    option: Optional[str] = "base"
-
-
 # --- Amass ---
-
 
 class EnumMode(IntEnum):
     DEFAULT = 0
@@ -41,10 +30,10 @@ class EnumMode(IntEnum):
 class EnumConfigModel(BaseModel):
     mode: Optional[EnumMode] = EnumMode.DEFAULT
     timeout: Optional[int] = None
-    dnsResolvers: Optional[list[IPv4Address]] = None
+    dnsResolvers: Optional[List[IPv4Address]] = None
 
     @validator("dnsResolvers")
-    def convert_dns_server(cls, dns: Optional[list[IPv4Address]]):
+    def convert_dns_server(cls, dns: Optional[List[IPv4Address]]):
         if dns == None or len(dns) == 0:
             return None
 

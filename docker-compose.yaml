@@ -21,10 +21,13 @@ services:
       - ffuf-service
       - zap-service
       - nmap-service
+      - wapp-service
     expose:
       - 8000
     ports:
       - 8000:8000
+    # volumes:
+    #   - ./app:/app
     networks:
       - backend
       - service
@@ -46,7 +49,20 @@ services:
 
   zap-service:
     image: boomboss555/zap-service:latest
+    restart: always
+    expose:
+      - 8000
+    # command: zap.sh -daemon -host 0.0.0.0 -nostdout -silent & python3 main.py
+    networks:
+      - service
+    volumes:
+      - zap-report:/zap/wrk/app/reports
+
+  wapp-service:
+    image: kofeebrian/wapp-service:latest
     restart: unless-stopped
+    expose:
+      - 3000
     networks:
       - service
 
@@ -55,9 +71,12 @@ services:
     restart: unless-stopped
     networks:
       - service
+
 volumes:
   amass-data:
   amass-config:
+  zap-wrk:
+  zap-report:
 
 networks:
   frontend:
