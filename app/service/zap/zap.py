@@ -11,7 +11,7 @@ class ZAPClient(object):
     """
 
     def __init__(self):
-        self.server = "http://zap-service:8080/api"
+        self.server = "http://zap-service:8000/api"
         self.options = {"base": "/basescan", "full": "/fullscan"}
 
     def scanning(self, url: str, option: str) -> Response:
@@ -19,11 +19,10 @@ class ZAPClient(object):
             if len(url) > 0:
                 response = requests.post(
                     self.server
-                    + self.options.get(option, "Only 'base' and 'full' are allowed.")
+                    + self.options.get(option, "Only 'base' and 'full' are allowed."),
+                    json={"url": url},
                 )
-                return JSONResponse(
-                    status_code=200, content=response.json(), json={"url": url}
-                )
+                return JSONResponse(status_code=200, content=response.json())
             else:
                 return JSONResponse(
                     status_code=400, content={"message": "Invalid Request"}

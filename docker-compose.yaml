@@ -49,14 +49,13 @@ services:
 
   zap-service:
     image: boomboss555/zap-service:latest
-    restart: unless-stopped
+    restart: always
     expose:
       - 8000
     # command: zap.sh -daemon -host 0.0.0.0 -nostdout -silent & python3 main.py
     networks:
       - service
     volumes:
-      - zap-wrk:/zap/wrk
       - zap-report:/zap/wrk/app/reports
 
   wapp-service:
