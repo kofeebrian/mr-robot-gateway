@@ -58,7 +58,7 @@ def enumerate(req: EnumRequestModel = Body(...)) -> JSONResponse:
         return JSONResponse(status_code=200, content=result)
     except Exception as e:
         logging.error(e)
-        return JSONResponse(status_code=400, content={"message": "error"})
+        return JSONResponse(status_code=500, content={"message": "error"})
 
 
 @router.get("/amass/db")
@@ -72,7 +72,7 @@ def get_enum_by_domain(domain: str) -> JSONResponse:
         return JSONResponse(status_code=200, content=result)
     except Exception as e:
         logging.error(e)
-        return JSONResponse(status_code=400, content={"message": "error"})
+        return JSONResponse(status_code=500, content={"message": "error"})
 
 
 @router.get("/amass/db/latest")
@@ -82,7 +82,7 @@ def get_latest_enum() -> JSONResponse:
         return JSONResponse(status_code=200, content=result)
     except Exception as e:
         logging.error(e)
-        return JSONResponse(status_code=400, content={"message": "error"})
+        return JSONResponse(status_code=500, content={"message": "error"})
 
 
 # --- VIZ ---
@@ -96,7 +96,7 @@ def get_graphistry(domain: str) -> JSONResponse:
         return JSONResponse(status_code=200, content=result)
     except Exception as e:
         logging.error(e)
-        return JSONResponse(status_code=400, content={"message": "error"})
+        return JSONResponse(status_code=500, content={"message": "error"})
 
 
 @router.post("/ffuf/scan")
@@ -117,7 +117,7 @@ def ffuf_scan(req: Simple_Request = Body(...)) -> JSONResponse:
 
 
 @router.post("/nmap/scan")
-def ffuf_scan(req: Simple_Request = Body(...)) -> JSONResponse:
+def nmap_scan(req: Simple_Request = Body(...)) -> JSONResponse:
     if not req:
         return JSONResponse(status_code=400, content={"message": "Invalid Request"})
 

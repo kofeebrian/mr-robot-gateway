@@ -26,8 +26,13 @@ services:
       - 8000
     ports:
       - 8000:8000
-    # volumes:
-    #   - ./app:/app
+
+    # For Testing
+    volumes:
+      - ./app:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    # End For Testing
+
     networks:
       - backend
       - service
@@ -46,6 +51,8 @@ services:
     restart: unless-stopped
     networks:
       - service
+    volumes:
+      - ffuf-report:/code/app/reports
 
   zap-service:
     image: boomboss555/zap-service:latest
@@ -67,16 +74,30 @@ services:
       - service
 
   nmap-service:
-    image: boomboss555/nmap-service:latest
+    image: kofeebrian/nmap-service:latest
     restart: unless-stopped
     networks:
       - service
+
+  portainer:
+      image: portainer/portainer-ce:latest
+      container_name: portainer
+      restart: unless-stopped
+      security_opt:
+        - no-new-privileges:true
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+        - ./portainer-data:/data
+      ports:
+        - 9000:9000
 
 volumes:
   amass-data:
   amass-config:
   zap-wrk:
   zap-report:
+  ffuf-report:
 
 networks:
   frontend:

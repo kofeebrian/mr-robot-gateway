@@ -16,7 +16,9 @@ class WAPPClient(object):
         try:
             if len(url) > 0:
                 response = requests.get(f"{self.server}/?url={url}")
-                return JSONResponse(status_code=200, content=response.json())
+                return JSONResponse(
+                    status_code=response.status_code, content=response.json()
+                )
             else:
                 return JSONResponse(
                     status_code=400, content={"message": "Invalid Request"}

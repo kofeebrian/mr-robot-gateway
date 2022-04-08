@@ -5,7 +5,7 @@ from .api import service
 
 app = FastAPI()
 
-origins = ["http://localhost", "http://localhost:3000"]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,

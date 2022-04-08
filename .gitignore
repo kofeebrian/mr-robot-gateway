@@ -9,3 +9,9 @@ env/
 pyrightconfig.*
 
 .idea
+portainer-data/portainer.db
+portainer-data/portainer.key
+portainer-data/portainer.pub
+portainer-data/certs/cert.pem
+portainer-data/certs/key.pem
+portainer-data/docker_config/config.json
