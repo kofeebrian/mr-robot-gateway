@@ -24,14 +24,14 @@ services:
       - wapp-service
     expose:
       - 8000
-    ports:
-      - 8000:8000
-
     # For Testing
     volumes:
       - ./app:/app
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     # End For Testing
+    deploy:
+      mode: replicatd
+      replicas: 2
 
     networks:
       - backend
@@ -78,6 +78,11 @@ services:
     restart: unless-stopped
     networks:
       - service
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.3"
 
   portainer:
       image: portainer/portainer-ce:latest
