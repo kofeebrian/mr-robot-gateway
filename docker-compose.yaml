@@ -4,31 +4,38 @@ services:
   proxy:
     image: nginx:alpine
     ports:
-      - 80:80 
+      - 80:80
     depends_on:
       - app
+      - web
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
     networks:
+      - frontend
       - backend
+      - service
 
+  web:
+    image: kofeebrian/cap-frontend:full
+    restart: unless-stopped
+    networks:
+    - frontend
   app:
-    image: capstone/cap-gateway
+    image: kofeebrian/cap-gateway
     build: .
     restart: unless-stopped
     depends_on:
       - amass-service
       - ffuf-service
       - zap-service
-      - nmap-service
+      - nmap-service-1
+      - nmap-service-2
+      - nmap-service-3
       - wapp-service
     expose:
       - 8000
-    # For Testing
     volumes:
       - ./app:/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-    # End For Testing
     deploy:
       mode: replicatd
       replicas: 2
@@ -73,29 +80,34 @@ services:
     networks:
       - service
 
-  nmap-service:
-    image: kofeebrian/nmap-service:latest
+  nmap-service-1:
+    image: kofeebrian/nmap-service:ws
     restart: unless-stopped
     networks:
       - service
     deploy:
-      replicas: 3
       resources:
         limits:
           cpus: "0.3"
 
-  portainer:
-      image: portainer/portainer-ce:latest
-      container_name: portainer
-      restart: unless-stopped
-      security_opt:
-        - no-new-privileges:true
-      volumes:
-        - /etc/localtime:/etc/localtime:ro
-        - /var/run/docker.sock:/var/run/docker.sock:ro
-        - ./portainer-data:/data
-      ports:
-        - 9000:9000
+  nmap-service-2:
+    image: kofeebrian/nmap-service:ws
+    restart: unless-stopped
+    networks:
+      - service
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+  nmap-service-3:
+    image: kofeebrian/nmap-service:ws
+    restart: unless-stopped
+    networks:
+      - service
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
 
 volumes:
   amass-data:
@@ -104,9 +116,11 @@ volumes:
   zap-report:
   ffuf-report:
 
+
 networks:
   frontend:
   backend:
     driver: bridge
   service:
+
 
