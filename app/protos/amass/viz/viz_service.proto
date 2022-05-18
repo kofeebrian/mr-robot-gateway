@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option go_package = "github.com/kofeebrian/capamass/protos/amass/viz";
+
+import "app/protos/amass/viz/viz_message.proto";
+
+package viz;
+
+service VizService {
+  rpc GetGraphistry(VizRequest) returns (VizResponse) {};
+}

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option go_package = "github.com/kofeebrian/capamass/protos/amass/viz";
+
+package viz;
+
+message VizConfig {
+  bool graphistry = 1;
+}
+
+message Edge {
+    string src = 1;
+    string dst = 2;
+    string edgeTitle = 3;
+}
+
+message Bindings {
+    string sourceField = 1;
+    string destinationField = 2;
+    string idField = 3;
+}
+
+message Label {
+  string node = 1;
+  string pointLabel = 2;
+  string pointTitle = 3;
+  uint64 pointColor = 4;
+  string type = 5;
+  string source = 6;
+}
+
+message GraphistryResult {
+  string name = 1;
+  string type = 2;
+  Bindings bindings = 3;
+  repeated Edge graph = 4;
+  repeated Label labels = 5;
+}
+
+message VizRequest {
+  string id = 1;
+  optional string domain = 2;
+}
+
+message VizResponse {
+  string id = 1;
+  optional string domain = 2;
+  oneof result {
+    GraphistryResult g_result= 3;
+  }
+}

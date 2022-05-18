@@ -1,0 +1,28 @@
+.DS_Store
+.gitignore
+Makefile
+README.md
+
+.idea
+.venv
+.vscode
+.git
+**/*/__pycache__/
+**/*/*.proto
+
+# formatter config
+pyrightconfig.json
+.DS_Store
+.gitignore
+Makefile
+README.md
+
+.idea
+.venv
+.vscode
+.git
+**/*/__pycache__/
+**/*/*.proto
+
+# formatter config
+pyrightconfig.json
