@@ -34,11 +34,13 @@ services:
       - wapp-service
     expose:
       - 8000
+    ports:
+      - 8000:8000
     volumes:
       - ./app:/app
-    deploy:
-      mode: replicatd
-      replicas: 2
+    # deploy:
+    #   mode: replicatd
+    #   replicas: 2
 
     networks:
       - backend

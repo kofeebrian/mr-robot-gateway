@@ -1,0 +1,84 @@
+cap-gateway-zap-service-1     | WARN-NEW: Missing Anti-clickjacking Header [10020] x 12
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/ (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/index.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/categories.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/artists.php (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: X-Content-Type-Options Header Missing [10021] x 12
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/ (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/index.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/categories.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/artists.php (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: Server Leaks Version Information via "Server" HTTP Response Header Field [10036] x 12
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/ (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/robots.txt (404 Not Found)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/sitemap.xml (404 Not Found)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/index.php (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s) [10037] x 12
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/ (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/index.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/categories.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/artists.php (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: Content Security Policy (CSP) Header Not Set [10038] x 12
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/ (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/robots.txt (404 Not Found)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/sitemap.xml (404 Not Found)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/index.php (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: Backup File Disclosure [10095] x 14
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/index.bak (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/index.zip (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/Mod_Rewrite_Shop/RateProduct-1%20-%20Copy.html (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/Mod_Rewrite_Shop/RateProduct-1%20-%20Copy%20(2).html (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/Mod_Rewrite_Shop/RateProduct-1%20-%20Copy%20(3).html (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: HTTP Only Site [10106] x 1
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/cart.php (0)
+cap-gateway-zap-service-1     | WARN-NEW: Absence of Anti-CSRF Tokens [10202] x 12
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/ (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/index.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/categories.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/artists.php (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: Anti-CSRF Tokens Check [20012] x 23
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/cart.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/guestbook.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/guestbook.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/search.php?test=query (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: Cross-Domain Misconfiguration - Adobe - Read [20016] x 1
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/crossdomain.xml (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: Cross Site Scripting (Reflected) [40012] x 16
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/guestbook.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/guestbook.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/secured/newuser.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/search.php?test=query (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/secured/newuser.php (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: SQL Injection [40018] x 7
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/secured/newuser.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/userinfo.php (302 Found)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/userinfo.php (302 Found)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/artists.php?artist=5-2 (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/listproducts.php?artist=3+AND+1%3D1+--+ (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: SQL Injection - MySQL [40019] x 7
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/secured/newuser.php (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/search.php?test=query (0)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/userinfo.php (302 Found)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/artists.php?artist=3 (0)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/listproducts.php?artist=3 (0)
+cap-gateway-zap-service-1     | WARN-NEW: .htaccess Information Leak [40032] x 7
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/Mod_Rewrite_Shop/.htaccess (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/Mod_Rewrite_Shop/BuyProduct-1/.htaccess (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/Mod_Rewrite_Shop/BuyProduct-2/.htaccess (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/Mod_Rewrite_Shop/BuyProduct-3/.htaccess (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/Mod_Rewrite_Shop/Details/color-printer/3/.htaccess (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: Source Code Disclosure - File Inclusion [43] x 2
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/hpp/params.php?p=valid&pp=12 (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/hpp/params.php?p=valid&pp=12 (200 OK)
+cap-gateway-zap-service-1     | WARN-NEW: XSLT Injection [90017] x 2
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/showimage.php?file=%3Cxsl%3Avalue-of+select%3D%22document%28%27http%3A%2F%2Ftestphp.vulnweb.com%3A22%27%29%22%2F%3E (200 OK)
+cap-gateway-zap-service-1     | 	http://testphp.vulnweb.com/showimage.php?file=%3Cxsl%3Avalue-of+select%3D%22document%28%27http%3A%2F%2Ftestphp.vulnweb.com%3A22%27%29%22%2F%3E&size=160 (200 OK)
+cap-gateway-zap-service-1     | FAIL-NEW: 0	FAIL-INPROG: 0	WARN-NEW: 16	WARN-INPROG: 0	INFO: 0	IGNORE: 0	PASS: 98
+cap-gateway-zap-service-1     | INFO:     192.168.16.9:58634 - "POST /api/fullscan HTTP/1.1" 200 OK
